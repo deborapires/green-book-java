@@ -1,34 +1,37 @@
-plugins {
-	id 'org.springframework.boot' version '2.4.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'com.bmuschko.docker-java-application' version '6.7.0'
+apply plugin: "idea"
+apply plugin: "eclipse"
+apply plugin: 'java'
+apply plugin: "groovy"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'docker-compose'
+apply plugin: 'com.bmuschko.docker-java-application'
+
+buildscript {
+	ext {
+		springBootVersion = "2.3.11.RELEASE"
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://plugins.gradle.org/m2/" }
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "gradle.plugin.com.avast.gradle:gradle-docker-compose-plugin:+"
+		classpath "com.bmuschko:gradle-docker-plugin:6.0.0"
+	}
 }
 
 group = 'com.olxbr'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
-repositories {
-	mavenCentral()
-}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-test {
-	useJUnitPlatform()
-}
 
 docker {
 	javaApplication {

@@ -1,2 +1,0 @@
-com/olxbr/greenbook/GreenBookApplicationTests.java
- com.olxbr.greenbook.GreenBookApplicationTests
